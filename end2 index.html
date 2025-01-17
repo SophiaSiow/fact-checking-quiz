@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fact-Checking Quiz</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20;
+            font-family: 'Arial', Arial;
+            color: #FF0000;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 80px; /* 添加左右内边距 */
+word-wrap: break-word; /* 自动换行 */
+    overflow-wrap: break-word; /* 兼容其他浏览器 */
+    box-sizing: border-box; /* 包含内边距在宽度计算内 */
+    gap: 20px;
+    position: relative;
+}
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 65px;
+            color: cyan;
+            text-shadow: 0 0 5px cyan, 0 0 10px cyan, 0 0 20px cyan;
+            animation: glowH1 2s infinite alternate;
+        }
+
+        @keyframes glowH1 {
+            0% {
+                color: cyan;
+                text-shadow: 0 0 5px cyan, 0 0 10px cyan, 0 0 20px cyan;
+            }
+            100% {
+                color: purple;
+                text-shadow: 0 0 5px white, 0 0 10px white, 0 0 20px white;
+            }
+        
+        }
+
+        h2 {
+            font-size: 45px;
+            font-family: 'Audiowide', sans-serif;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            color: white;
+            text-shadow: 
+                0 0 10px rgba(138, 43, 226, 0.8),
+                0 0 20px rgba(138, 43, 226, 0.6),
+                0 0 30px rgba(138, 43, 226, 0.4),
+                0 0 40px rgba(138, 43, 226, 0.3);
+            transition: text-shadow 0.5s ease-in-out;
+         
+        }
+
+        h3 {
+            font-size: 30px;
+            font-family: 'Audiowide', sans-serif;
+            font-weight: bold;
+            text-align: center;
+            text-transform: uppercase;
+            color: white;
+            text-shadow: 
+                0 0 10px rgba(138, 43, 226, 0.8),
+                0 0 20px rgba(138, 43, 226, 0.6),
+                0 0 30px rgba(138, 43, 226, 0.4),
+                0 0 40px rgba(138, 43, 226, 0.3);
+            transition: text-shadow 0.5s ease-in-out;
+         
+        }
+
+        h4 {
+            font-size: 20px;
+            color: red !important;
+	    text-shadow: 
+        0 0 10px rgba(0, 0, 0, 0.8),
+        0 0 20px rgba(0, 0, 0, 0.6),
+        0 0 30px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(0, 0, 0, 0.3);
+    transition: text-shadow 0.5s ease-in-out;
+	}
+
+        h5 {
+            font-size: 30px;
+            color: black !important;
+	}
+
+h6 {
+    font-size: 55px;
+    font-family: 'Audiowide', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    color: black;
+    text-shadow: 
+        0 0 10px rgba(138, 43, 226, 0.8),
+        0 0 20px rgba(138, 43, 226, 0.6),
+        0 0 30px rgba(138, 43, 226, 0.4),
+        0 0 40px rgba(138, 43, 226, 0.3);
+    transition: text-shadow 0.5s ease-in-out;
+    animation: glowH6 2s infinite alternate;
+}
+
+@keyframes glowH6 {
+    0% {
+        color: red;
+        text-shadow: 
+            0 0 10px rgba(255, 0, 0, 0.8),
+            0 0 20px rgba(255, 0, 0, 0.6),
+            0 0 30px rgba(255, 0, 0, 0.4),
+            0 0 40px rgba(255, 0, 0, 0.3);
+    }
+    100% {
+        color: black;
+        text-shadow: 
+            0 0 10px rgba(255, 255, 255, 0.8),
+            0 0 20px rgba(255, 255, 255, 0.6),
+            0 0 30px rgba(255, 255, 255, 0.4),
+            0 0 40px rgba(255, 255, 255, 0.3);
+    }
+}
+
+        p {
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border: 2px solid;
+            border-image: linear-gradient(90deg, #00FFFF, #FF00FF) 1;
+            border-radius: 5px;
+            background-color: #000;
+            color: #fff;
+            text-shadow: 0 0 5px #000;
+            transition: all 0.3s ease;
+            width: auto;
+            min-width: 200px;
+            max-width: 900px;
+            text-align: center;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            margin: 5px;
+        }
+
+        button:hover {
+            transform: scale(1.1);
+            background: linear-gradient(90deg, #FF00FF, #00FFFF);
+            color: #000;
+        }
+
+        #options {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+	#question-container {
+    text-align: center;
+    max-width: 80%; /* 限制最大宽度为屏幕宽度的 80% */
+    margin: 0 auto; /* 居中 */
+    padding: 50px 50px; /* 添加左右内边距 */
+    word-wrap: break-word; /* 自动换行 */
+    overflow-wrap: break-word; /* 兼容其他浏览器 */
+    box-sizing: border-box; /* 包含内边距在宽度计算内 */
+}
+
+        #question-image {
+            max-width: 100%;
+            height: auto;
+            max-height: 300px;
+            border-radius: 10px;
+            margin: 30px 0 -20px; /* 上下间距更明显 */
+}
+
+
+        .hidden {
+            display: none;
+        }
+
+        .character-selection {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+
+        .character {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .character img {
+            max-width: 250px;
+            max-height: 400px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px #00FFFF, 0 0 30px #FF00FF;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .character img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 25px #FF00FF, 0 0 40px #00FFFF;
+        }
+
+        .feedback {
+    font-size: 1.2em;
+    margin-top: 20px;
+    text-shadow: 0 0 5px #000;
+    height: 30px; /* 固定高度，防止内容出现时影响布局 */
+    line-height: 30px; /* 让文本居中 */
+    visibility: hidden; /* 默认隐藏，避免空间占用 */
+}
+
+.feedback.correct,
+.feedback.incorrect {
+    visibility: visible; /* 显示反馈文字 */
+}
+
+        .correct {
+            color: #00FFFF;
+            text-shadow: 0 0 10px #00FFFF, 0 0 20px #0000FF;
+        }
+
+        .incorrect {
+            color: #FF0000;
+            text-shadow: 0 0 10px #FF0000, 0 0 20px #FF4500;
+        }
+
+        #page-1 {
+            background-image: url('https://i.ibb.co/QbLKQs9/download.jpg');
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #page-2 {
+            background-image: url('https://i.ibb.co/vHQYvMf/Whats-App-Image-2025-01-02-at-17-41-36.jpg');
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #page-3 {
+            background-image: url('https://i.ibb.co/6ymg8wR/IMG-20250102-WA0027.jpg');
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #page-4 {
+            background-image: url('https://i.ibb.co/WFJN6Pz/logo-make-11-06-2023-152.jpg');
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #final-page {
+            background-image: url('https://i.ibb.co/CVSPQBY/Whats-App-Image-2025-01-02-at-20-14-00.jpg');
+            background-size: cover;
+            background-position: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="page-1" class="container">
+        <h1>Welcome to Truth Clinic</h1>
+        <button onclick="startGame()">Let's start the treatment now!</button>
+    </div>
+    
+    <div id="page-2" class="container hidden">
+        <h3>In the future city of Life Bay, the Truth Clinic offers a unique treatment for people suffering from “Information Disorder”. You are a patient affected by fake news and you need to be treated through a game</h3>
+        <h4>Along the journey, you confront the dangers of fake news and rediscover the power of critical thinking.
+	<br>
+    	Are you getting ready for the treatment now?
+</h4>
+        <button onclick="goToPage(3)">Let's Go!</button>
+    </div>
+
+    <div id="page-3" class="container hidden">
+        <h2>Select Your Character</h2>
+        <div class="character-selection">
+            <div class="character">
+                <img src="https://i.ibb.co/RvGxxJS/2024-12-29-231930.png" alt="Adam" onclick="selectCharacter('Adam')">
+                <h5>Adam</h5>
+         </div>
+         <div class="character">
+                <img src="https://i.ibb.co/1q92MCb/38957725.jpg" alt="Angel" onclick="selectCharacter('Angel')">
+                <h5>Angel</h5>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-4" class="container hidden">
+        <img id="question-image" src="" alt="Question Image" class="hidden">
+        <h3 id="question">Question will appear here</h3>
+        <div id="options"></div>
+        <p id="feedback" class="feedback hidden"></p>
+    </div>
+
+
+    <div id="final-page" class="container hidden">
+        <h6>Congratulations, you have cleared the level and completed the treatment successfully!</h6>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        let selectedCharacter = '';
+        let currentQuestionIndex = 0;
+
+        const questions = [
+            {
+        	question: "What is the definition and purpose of fact-check?",
+        	options: [
+            		"Fact-checking is a form of journalism aimed at verifying the accuracy of public statements. Its goal is to correct public misconceptions and increase understanding of important issues.",
+            		"Fact-checking is a process that involves quickly finding ways to check evidence and disseminating unverified and rapid information."
+        	],
+        	answer: "Fact-checking is a form of journalism aimed at verifying the accuracy of public statements. Its goal is to correct public misconceptions and increase understanding of important issues.",
+        	image: null // 不需要照片
+    	    },
+            {
+                question: "Which is the type of Fact-Checking?",
+                options: ["Traditional Fact-Checking: Ensures accuracy in nonfiction materials (e.g., spelling, dates, addresses)", "Modern Fact-Checking: Focuses on analysing and verifying public claims, especially in politics", "Both are"],
+                answer: "Both are"
+            },
+            {
+                question: "Which of the following options is the correct way to conduct a fact check?",
+                options: ["Confirm that the source of the information is reliable and verify the information through multiple independent sources", "Trust information from only one source and do not need to cross-validate other sources"],
+                answer: "Confirm that the source of the information is reliable and verify the information through multiple independent sources"
+            },
+            {
+                question: "Can we use AI aids like ChatGPT, perplexity for fact-checking?",
+                options: ["Yes", "No"],
+                answer: "No"
+            },
+            {
+                question: "Now you've got the basics of fact-checking, so let's get together and fact-check real cases! Only then will you be able to collect all the therapy supplies and return to the real world!",
+    options: ["Let’s Go!"],
+    answer: "Let’s Go!",
+    noFeedback: true // 添加标志
+},
+            {
+		question: "Which of the following statements about the fake news incident involving Sin Chew Daily is correct?",
+                options: [
+			"The incident was a fundraising scam, where criminals fabricated a news page similar to Sin Chew Daily’s official page to deceive the public into making donations",
+			"Sin Chew Daily confirmed the incident was real and urged the public to donate to the beautician in need"
+		],
+                answer: "The incident was a fundraising scam, where criminals fabricated a news page similar to Sin Chew Daily’s official page to deceive the public into making donations",
+                image: "https://i.ibb.co/jGNRrSm/question-5.png" // 替换为实际图片链接
+            },
+	    {
+		question: "According to information disseminated, is it true that a health report will be required to renew driver's licenses for people over the age of 60 starting in 2025?",
+                options: [
+			"True. From 2025, those over 60 must submit a health report to renew their driver’s licenses",
+			"False. There’s no new policy for 2025. Elderly drivers only need to follow current renewal rules, with no health report required"
+		],
+                answer: "False. There’s no new policy for 2025. Elderly drivers only need to follow current renewal rules, with no health report required",
+                image: "https://i.ibb.co/gFwLVH1/Question-6.jpg" // 替换为实际图片链接
+            },
+	    {
+		question: "Did Malaysiakini publish an article claiming that Malaysia's jazz queen Sheila Majid is suffering from arthritis, promoting a remedy for the disorder?",
+                options: [
+			"True. Malaysiakini reported Sheila Majid’s arthritis and promoted a remedy",
+			"False. Malaysiakini did not publish the article. It was a phishing scam, and Sheila Majid has called for authorities to act"
+		],
+                answer: "False. Malaysiakini did not publish the article. It was a phishing scam, and Sheila Majid has called for authorities to act",
+                image: "https://i.ibb.co/SNLMLLf/Question-7.png" // 替换为实际图片链接
+            },
+	    {
+		question: "Is it true that Kuala Lumpur is built atop a giant cave and is unsafe for residents and visitors, as claimed on social media following a tourist’s fall into a sinkhole?",
+                options: [
+			"True. Kuala Lumpur is built on a giant cave and is unsafe, as verified by experts like Dr. Sarah Jamal",
+			"False. Geological experts confirmed Kuala Lumpur is not built on a giant cave, and the claims are baseless. The cited expert, Dr. Sarah Jamal, does not exist"
+		],
+                answer: "False. Geological experts confirmed Kuala Lumpur is not built on a giant cave, and the claims are baseless. The cited expert, Dr. Sarah Jamal, does not exist",
+                image: "https://i.ibb.co/9ngbPm5/Question-8.jpg" // 替换为实际图片链接
+            },
+        ];
+
+        function goToPage(pageNumber) {
+            document.getElementById('page-' + currentPage).classList.add('hidden');
+            currentPage = pageNumber;
+            document.getElementById('page-' + currentPage).classList.remove('hidden');
+        }
+
+        function startGame() {
+            goToPage(2);
+        }
+
+        function selectCharacter(character) {
+            selectedCharacter = character;
+            alert(`${character} selected!`);
+            goToPage(4);
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+    const currentQuestion = questions[currentQuestionIndex];
+    
+    // 设置题目文字
+    document.getElementById('question').innerText = currentQuestion.question;
+
+    // 设置选项
+    const optionsDiv = document.getElementById('options');
+    optionsDiv.innerHTML = '';
+    currentQuestion.options.forEach(option => {
+        const button = document.createElement('button');
+        button.innerText = option;
+        button.onclick = () => checkAnswer(option);
+        optionsDiv.appendChild(button);
+    });
+
+    // 动态设置问题图片的显示
+    const questionImage = document.getElementById('question-image');
+    if (currentQuestion.image) {
+        questionImage.src = currentQuestion.image;
+        questionImage.alt = `Image for question: ${currentQuestion.question}`;
+        questionImage.classList.remove('hidden'); // 显示图片
+    } else {
+        questionImage.src = '';
+        questionImage.alt = '';
+        questionImage.classList.add('hidden'); // 隐藏图片
+    }
+}
+
+        function checkAnswer(selectedOption) {
+    const currentQuestion = questions[currentQuestionIndex];
+
+    // 如果该问题不需要反馈，直接跳转到下一题或结束页面
+    if (currentQuestion.noFeedback) {
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            loadQuestion(); // 加载下一个问题
+        } else {
+            showFinalPage(); // 结束页面
+        }
+        return;
+    }
+
+    const feedback = document.getElementById("feedback");
+
+    if (selectedOption === currentQuestion.answer) {
+        feedback.textContent = "Correct! Well done!";
+        feedback.className = "feedback correct";
+        feedback.style.visibility = "visible"; // 显示反馈文字
+
+        setTimeout(() => {
+            feedback.style.visibility = "hidden"; // 隐藏反馈文字
+            currentQuestionIndex++; // 移动到下一题
+            if (currentQuestionIndex < questions.length) {
+                loadQuestion(); // 加载下一个问题
+            } else {
+                showFinalPage(); // 结束页面
+            }
+        }, 1000); // 显示时间 1 秒后加载下一题
+    } else {
+        feedback.textContent = "Incorrect. Try again!";
+        feedback.className = "feedback incorrect";
+        feedback.style.visibility = "visible"; // 显示反馈文字
+
+        setTimeout(() => {
+            feedback.style.visibility = "hidden"; // 短暂显示后隐藏
+        }, 1000); // 显示时间缩短到 1 秒
+    }
+}
+
+
+    function showFinalPage() {
+        document.getElementById("page-4").classList.add("hidden");
+        document.getElementById("final-page").classList.remove("hidden");
+    }
+    </script>
+</body>
+</html>
