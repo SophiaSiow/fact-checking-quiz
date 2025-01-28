@@ -102,7 +102,7 @@ word-wrap: break-word; /* 自动换行 */
 	}
 
 h6 {
-    font-size: 85px;
+    font-size: 75px;
     font-family: 'Audiowide', sans-serif;
     font-weight: bold;
     text-align: center;
